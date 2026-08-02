@@ -1,0 +1,23 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Windfall API
+  version: 1.0.0
+extends: openapi/windfall-data-openapi-original.json
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-rating: 3
+      x-apievangelist-notes: >-
+        Single-operation real-time enrichment API. apiKey auth, dedicated sandbox with
+        deterministic personas, no OAuth/webhooks/events. Well-documented for its scope.
+  - target: $.info
+    update:
+      x-sandbox-url: https://api.windfalldata.com/sandbox/v1
+      x-status-page: null
+  - target: $.paths['/'].post
+    update:
+      x-agentic-access:
+        action-class: acting
+        consequence: write
+        subject: required
+        audit: required

@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/windfall-data-openapi-original.json
+note: >-
+  No official hosted/remote MCP server was found for Windfall. This is a candidate tool
+  surface derived one-to-one from the OpenAPI operations.
+server:
+  name: windfall-data
+  transport: http
+tools:
+  - name: enrich_record
+    description: >-
+      Submit a person record (name, addresses, emails, phones, company) and receive
+      Windfall's enriched household (net worth, Windfall ID) and career (LinkedIn) data in
+      real time.
+    source_operation: openapi/windfall-data-openapi-original.json#enrichRecord

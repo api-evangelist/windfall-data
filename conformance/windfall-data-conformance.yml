@@ -1,0 +1,29 @@
+generated: '2026-07-21'
+method: searched
+source: https://www.windfall.com/security
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: API uses a static apiKey header token (X-WF-Auth-Token), no oauth2 flows.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a custom {error, message} envelope, not application/problem+json.
+  - id: rfc8594-sunset
+    conforms: false
+  - id: json
+    conforms: true
+    evidence: All requests and responses are application/json.
+  - id: tls
+    conforms: true
+    evidence: HTTPS-only; TLSv1.3 with AES-256 encryption per security documentation.
+  - id: soc2-type2
+    conforms: true
+    evidence: Windfall is SOC 2 Type 2 certified per https://www.windfall.com/security
+  - id: owasp
+    conforms: true
+    evidence: Application security follows OWASP standards per security documentation.
+compliance:
+  soc2_type2: true
+  program_url: https://www.windfall.com/security

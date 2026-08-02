@@ -1,0 +1,7 @@
+generated: '2026-07-21'
+method: generated
+skills:
+  - file: windfall-data-enrich-record.md
+    name: Enrich a person record with Windfall
+    api: openapi/windfall-data-openapi-original.json
+    operations: [enrichRecord]

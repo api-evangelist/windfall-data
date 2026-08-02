@@ -1,0 +1,14 @@
+{
+  "provider": "windfall-data",
+  "sources": [
+    "windfall-data-windfall-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "windfall-data-windfall-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

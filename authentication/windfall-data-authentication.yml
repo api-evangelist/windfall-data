@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/windfall-data-openapi-original.json
+docs: https://api-docs.windfall.com/authentication/
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  oauth2: false
+  note: >-
+    Static organization-scoped token issued by Windfall, sent in the X-WF-Auth-Token
+    header over HTTPS. Production and sandbox tokens are separate and non-interchangeable
+    (sandbox tokens are prefixed sandbox_). No OAuth or scopes.
+schemes:
+- name: ApiToken
+  type: apiKey
+  in: header
+  parameter: X-WF-Auth-Token
+  description: Your API token, provided by Windfall. All requests must include this header.
+  sources:
+  - openapi/windfall-data-openapi-original.json

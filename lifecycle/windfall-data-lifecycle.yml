@@ -1,0 +1,18 @@
+generated: '2026-07-21'
+method: searched
+source: https://api-docs.windfall.com/
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://api-docs.windfall.com/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No public deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+  response_time_target: "< 1 second"
+  data_freshness: updated weekly
+status_page: null
+status_page_note: No public status page found (status.windfall.com and status.windfalldata.com both 404).
+deprecated_operations: []

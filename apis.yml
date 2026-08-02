@@ -1,21 +1,59 @@
 aid: windfall-data
 name: Windfall Data
-description: Windfall Data is a company surfaced as a portfolio company of bullpen-capital and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Windfall (windfall.com, formerly windfalldata.com) is a people-intelligence and AI platform
+  that personalizes go-to-market workflows with wealth and career data. Its developer-facing
+  Windfall API delivers enriched household and career data on a single-record basis in real
+  time: submit a person record with basic PII and receive that individual's household net
+  worth, a stable Windfall ID, and career signals such as a LinkedIn URL and title, returned
+  as JSON in one sub-second request. Coverage is United States, data is refreshed weekly, and
+  the API is used for real-time lead routing and grading, marketing enrichment, and analytics
+  scoring. Authentication is a Windfall-issued header token with a dedicated sandbox
+  environment of deterministic test personas. Windfall is SOC 2 Type 2 certified.
 url: https://raw.githubusercontent.com/api-evangelist/windfall-data/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://api-docs.windfall.com/logo.svg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - bullpen-capital
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-real-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Data
+- Data Enrichment
+- Wealth Data
+- People Intelligence
+- Net Worth
+- Identity Resolution
+- Marketing
+- Sales
+apis:
+- aid: windfall-data:windfall-data-windfall-api-api
+  name: Windfall Data Windfall API API
+  description: The Windfall API API from Windfall Data — 1 operation(s) for windfall api.
+  humanURL: https://api-docs.windfall.com/
+  baseURL: https://api.windfalldata.com/v1
+  tags:
+  - Windfall API
+  properties:
+  - type: OpenAPI
+    url: openapi/windfall-data-windfall-api-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,4 +61,53 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://windfalldata.com
+  url: https://windfall.com
+- type: DeveloperPortal
+  url: https://api-docs.windfall.com/
+- type: Documentation
+  url: https://api-docs.windfall.com/
+- type: APIReference
+  url: https://api-docs.windfall.com/
+- type: GettingStarted
+  url: https://api-docs.windfall.com/quickstart/
+- type: Authentication
+  url: authentication/windfall-data-authentication.yml
+- type: Sandbox
+  url: sandbox/windfall-data-sandbox.yml
+- type: MCPServer
+  url: mcp/windfall-data-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/windfall-data-agentic-access.yml
+- type: Conventions
+  url: conventions/windfall-data-conventions.yml
+- type: ErrorCatalog
+  url: errors/windfall-data-problem-types.yml
+- type: DataModel
+  url: data-model/windfall-data-data-model.yml
+- type: Lifecycle
+  url: lifecycle/windfall-data-lifecycle.yml
+- type: Conformance
+  url: conformance/windfall-data-conformance.yml
+- type: Compliance
+  url: https://www.windfall.com/security
+- type: TrustCenter
+  url: security/windfall-data-trust-center.yml
+- type: DomainSecurity
+  url: security/windfall-data-domain-security.yml
+- type: LLMsTxt
+  url: llms/windfall-data-llms.txt
+- type: GitHubOrganization
+  url: https://github.com/windfalldata
+- type: Login
+  url: https://login.windfalldata.com/login
+- type: TermsOfService
+  url: https://www.windfall.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.windfall.com/privacy
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 14
+  pass: local-v1

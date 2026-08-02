@@ -1,0 +1,25 @@
+# Windfall API
+
+> Windfall delivers enriched household and career data on a single-record basis in real time. Submit a person record with basic PII and receive enriched data about their household (net worth, Windfall ID) and career (LinkedIn, title) as JSON in one request. US coverage, updated weekly, sub-second response.
+
+## APIs
+
+- [Windfall API](https://api-docs.windfall.com/): Real-time single-record enrichment. Base URL https://api.windfalldata.com/v1. Auth via X-WF-Auth-Token header. Rate limit 5 req/s.
+
+## Specs
+
+- [OpenAPI 3.1](https://api-docs.windfall.com/static/openapi.json): The Windfall API OpenAPI definition.
+
+## Docs
+
+- [API Documentation](https://api-docs.windfall.com/)
+- [Quickstart](https://api-docs.windfall.com/quickstart/)
+- [Authentication](https://api-docs.windfall.com/authentication/)
+- [Sandbox](https://api-docs.windfall.com/sandbox/): Deterministic test personas, sandbox_ token prefix, endpoint https://api.windfalldata.com/sandbox/v1
+- [Security](https://www.windfall.com/security): SOC 2 Type 2 certified
+- [Privacy](https://www.windfall.com/privacy)
+- [Terms of Service](https://www.windfall.com/terms-of-service)
+
+## Operations
+
+- enrichRecord (POST /): Enrich a person record with household and career data.

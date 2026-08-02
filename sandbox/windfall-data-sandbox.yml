@@ -1,0 +1,45 @@
+generated: '2026-07-21'
+method: searched
+source: https://api-docs.windfall.com/sandbox/
+summary: >-
+  Windfall provides a dedicated sandbox endpoint with deterministic test personas so
+  integrations can be validated without consuming credits or hitting production data.
+  Sandbox and production tokens are non-interchangeable.
+endpoints:
+  production: https://api.windfalldata.com/v1
+  sandbox: https://api.windfalldata.com/sandbox/v1
+token:
+  live_header: X-WF-Auth-Token
+  sandbox_prefix: sandbox_
+  note: >-
+    Production tokens do not work on the sandbox endpoint and sandbox tokens do not work
+    on production; either combination returns 403. Sandbox tokens are provisioned by
+    Windfall on request via your account representative.
+  billing: none
+  rate_limit: 5 requests/second
+error_simulation:
+  header: X-Windfall-Sandbox-Error
+  values: [400, 429, 500, 503]
+  note: Set this header on a sandbox request to exercise error-handling paths.
+matching_requirements:
+  - Email alone matches on the emails field.
+  - Full address matches on addresses[].address (street number + name) AND addresses[].zipcode.
+  - Phone + name matches on phones, first_name, AND last_name.
+personas:
+  household_and_career:
+    - {name: Amanda Taylor, net_worth: 1000000, title: Software Engineer}
+    - {name: Daniel Garcia, net_worth: 5000000, title: VP of Marketing}
+    - {name: Michelle Robinson, net_worth: 10000000, title: CFO}
+    - {name: James Thompson, net_worth: 25000000, title: Director of Operations}
+    - {name: Catherine White, net_worth: 50000000, title: CEO}
+  household_only:
+    note: Five personas (Jane Doe through Elizabeth Brown) ranging $1M-$50M net worth.
+  career_only:
+    note: Five personas (David Wilson through Christopher Lee) with various job titles.
+example_request:
+  first_name: Amanda
+  last_name: Taylor
+  address: 100 Demo St
+  zipcode: '30301'
+  email: amanda.taylor@sandbox.windfall.com
+  phone: '5553000001'

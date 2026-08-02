@@ -1,0 +1,23 @@
+generated: '2026-07-21'
+method: searched
+source: live probes of /.well-known/ on Windfall hosts
+note: >-
+  No /.well-known/ discovery documents were served. The marketing host returns 404 for all
+  probed paths; the API host returns 401 (its API-key gate intercepts every path, so these
+  are not real discovery documents). No document returned 200, so no WellKnown pointer is
+  wired.
+hosts:
+  - host: https://www.windfall.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://api.windfalldata.com
+    documents:
+      - {path: /.well-known/security.txt, status: 401}
+      - {path: /.well-known/openid-configuration, status: 401}
+      - {path: /.well-known/oauth-authorization-server, status: 401}
+      - {path: /.well-known/api-catalog, status: 401}
+      - {path: /.well-known/ai-plugin.json, status: 401}

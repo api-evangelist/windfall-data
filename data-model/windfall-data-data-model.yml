@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/windfall-data-openapi-original.json
+entities:
+  - name: EnrichmentRequest
+    description: A person record submitted for enrichment (PII inputs).
+    fields: [id, first_name, last_name, addresses, emails, phones, company_name]
+  - name: Address
+    description: A property address used during matching.
+    fields: [address, city, state, zipcode]
+  - name: EnrichmentResponse
+    description: Enriched result for a submitted person record.
+    fields: [id, household, career, household_matched, career_matched]
+  - name: Household
+    description: Enriched household data (embedded object; fields vary by account configuration).
+    fields: [confidence, windfall_id, net_worth]
+  - name: Career
+    description: Enriched career data (embedded object; fields vary by account configuration).
+    fields: [confidence, linkedin_url]
+relationships:
+  - from: EnrichmentRequest
+    to: Address
+    type: has_many
+    via: addresses
+  - from: EnrichmentResponse
+    to: Household
+    type: has_one
+    via: household
+  - from: EnrichmentResponse
+    to: Career
+    type: has_one
+    via: career
+  - from: EnrichmentResponse
+    to: EnrichmentRequest
+    type: belongs_to
+    via: id
+identifiers:
+  - name: windfall_id
+    description: Stable Windfall household identifier (32-char hex) returned on a household match.
+    example: bde3d183ad6215f2932217ee5d6d368a

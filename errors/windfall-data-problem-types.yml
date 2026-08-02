@@ -1,0 +1,33 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/windfall-data-openapi-original.json
+docs: https://api-docs.windfall.com/authentication/
+format: custom
+envelope:
+  media_type: application/json
+  fields:
+    error: Error type identifier.
+    message: Human-readable error message.
+problems:
+  - status: 400
+    error: malformed_request
+    title: Malformed request body
+    remediation: Ensure your JSON is valid and required fields are well-formed.
+    source_operation: openapi/windfall-data-openapi-original.json#enrichRecord
+  - status: 401
+    error: invalid_token
+    title: Invalid or missing API token
+    remediation: Check your X-WF-Auth-Token header carries a valid Windfall-issued token.
+    source_operation: openapi/windfall-data-openapi-original.json#enrichRecord
+  - status: 403
+    error: token_type_mismatch
+    title: Wrong token environment
+    remediation: >-
+      A sandbox token was used against production or vice versa. Use a sandbox_ token on
+      the /sandbox/v1 endpoint and a production token on /v1.
+    source: https://api-docs.windfall.com/sandbox/
+  - status: 429
+    error: rate_limit
+    title: Rate limit exceeded
+    remediation: Maximum 5 requests per second. Back off and retry after a brief delay.
+    source_operation: openapi/windfall-data-openapi-original.json#enrichRecord

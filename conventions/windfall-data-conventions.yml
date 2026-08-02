@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+source: https://api-docs.windfall.com/
+summary: >-
+  Cross-cutting request/response conventions for the Windfall enrichment API, derived from
+  the OpenAPI and the developer documentation.
+authentication:
+  style: api-key
+  header: X-WF-Auth-Token
+  transport: HTTPS only
+  see: authentication/windfall-data-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  base_path: /v1
+pagination:
+  supported: false
+  note: Single-record real-time enrichment; there is no list/collection surface to paginate.
+idempotency:
+  supported: false
+  note: >-
+    Enrichment is a read-style lookup returning current data for a submitted record; the
+    provider documents no idempotency-key header. No Idempotency pointer is emitted.
+correlation:
+  request_echo_field: id
+  note: The id you submit is echoed back on the response for correlation.
+  request_id_field: request_id
+  request_id_note: Error responses from the gateway include a request_id for support.
+rate_limiting:
+  limit: 5 requests/second
+  exceeded_status: 429
+  exceeded_error: rate_limit
+  strategy: back off and retry after a brief delay
+error_envelope:
+  media_type: application/json
+  fields: [error, message]
+  see: errors/windfall-data-problem-types.yml
+data_coverage:
+  geography: United States
+  freshness: updated weekly
