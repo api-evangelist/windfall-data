@@ -32,7 +32,7 @@ x-tier: profiled
 x-tier-reason: enriched-real-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 tags:
 - Company
 - Data
@@ -98,10 +98,22 @@ common:
   url: security/windfall-data-trust-center.yml
 - type: DomainSecurity
   url: security/windfall-data-domain-security.yml
+- type: RateLimits
+  url: rate-limits/windfall-data-rate-limits.yml
+- type: Plans
+  url: plans/windfall-data-plans-pricing.yml
+- type: Examples
+  url: examples/windfall-data-examples.yml
 - type: LLMsTxt
   url: llms/windfall-data-llms.txt
 - type: GitHubOrganization
   url: https://github.com/windfalldata
+- type: Support
+  url: https://www.windfall.com/contact
+- type: Blog
+  url: https://www.windfall.com/blog
+- type: BlogRSS
+  url: https://www.windfall.com/blog/rss.xml
 - type: Login
   url: https://login.windfalldata.com/login
 - type: TermsOfService
@@ -109,7 +121,7 @@ common:
 - type: PrivacyPolicy
   url: https://www.windfall.com/privacy
 x-enrichment:
-  date: '2026-07-21'
+  date: '2026-08-13'
   status: enriched
-  artifacts_added: 14
+  artifacts_added: 5
   pass: local-v1
