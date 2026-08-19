@@ -1,0 +1,26 @@
+generated: '2026-08-13'
+method: searched
+source: registry searches + https://api-docs.windfall.com/ + https://github.com/WindfallData
+package_count: 0
+packages: []
+note: >-
+  Windfall publishes no first-party client libraries. The API documentation ships raw curl,
+  Python (requests) and JavaScript (fetch) snippets only — there is no SDK section anywhere
+  in the docs navigation (Overview, Authentication, Quickstart, Sandbox, Enrich a Record,
+  Household Fields, Career Fields, Business Use Cases, Examples & FAQs). The WindfallData
+  GitHub organization holds five public repositories and none is a Windfall API client:
+  990_long (IRS 990 dataset tooling), beam-bigquery-utils, and forks of google-cloud-java,
+  shap and redis-agent-memory-server. No matching package exists on PyPI (windfall,
+  windfall-data both 404), RubyGems (windfall 404), or npm (no first-party @windfall/*
+  publisher). No SDKs pointer is wired, because there is no official client library to
+  point at — a recorded absence, not an unchecked field.
+registries_checked:
+  - {registry: npm, query: windfall enrichment / @windfall, result: no first-party package}
+  - {registry: pypi, package: windfall, status: 404}
+  - {registry: pypi, package: windfall-data, status: 404}
+  - {registry: rubygems, package: windfall, status: 404}
+  - {registry: github, org: WindfallData, result: 5 public repos, none an API client}
+code_samples:
+  documented: true
+  languages: [curl, python, javascript]
+  source: https://api-docs.windfall.com/quickstart/

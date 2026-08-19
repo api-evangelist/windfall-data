@@ -1,6 +1,6 @@
 # Windfall API
 
-> Windfall delivers enriched household and career data on a single-record basis in real time. Submit a person record with basic PII and receive enriched data about their household (net worth, Windfall ID) and career (LinkedIn, title) as JSON in one request. US coverage, updated weekly, sub-second response.
+> Windfall delivers enriched household and career data on a single-record basis in real time. Submit a person record with basic PII and receive enriched data about their household (net worth, Windfall ID, philanthropy and political-giving signals) and career (job title, employer firmographics, LinkedIn) as JSON in one sub-second request. US coverage only, data refreshed weekly. One operation, no batch endpoint, 5 requests/second, no public pricing — API access is bundled into a Windfall subscription as a monthly credit allocation.
 
 ## APIs
 
@@ -8,13 +8,17 @@
 
 ## Specs
 
-- [OpenAPI 3.1](https://api-docs.windfall.com/static/openapi.json): The Windfall API OpenAPI definition.
+- [OpenAPI 3.1](https://api-docs.windfall.com/static/openapi.json): The Windfall API OpenAPI definition (verified live 2026-08-13, byte-identical to the copy harvested in this repo).
 
 ## Docs
 
 - [API Documentation](https://api-docs.windfall.com/)
 - [Quickstart](https://api-docs.windfall.com/quickstart/)
 - [Authentication](https://api-docs.windfall.com/authentication/)
+- [Enrich a Record](https://api-docs.windfall.com/enrich/): The single POST / operation.
+- [Household Fields](https://api-docs.windfall.com/household-fields/): 32 household attributes.
+- [Career Fields](https://api-docs.windfall.com/career-fields/): 26 career attributes.
+- [Examples & FAQs](https://api-docs.windfall.com/examples/): Worked requests, batch pacing, error handling.
 - [Sandbox](https://api-docs.windfall.com/sandbox/): Deterministic test personas, sandbox_ token prefix, endpoint https://api.windfalldata.com/sandbox/v1
 - [Security](https://www.windfall.com/security): SOC 2 Type 2 certified
 - [Privacy](https://www.windfall.com/privacy)
@@ -23,3 +27,35 @@
 ## Operations
 
 - enrichRecord (POST /): Enrich a person record with household and career data.
+
+## Operating notes
+
+- Rate limit: 5 requests/second per token; exceeding it returns 429 with error `rate_limit`. No RateLimit-* or Retry-After response headers are published — back off on a fixed delay (the provider's example uses 1 second).
+- Quota: each request spends one usage token from a contractual allocation set by the purchase order. Sandbox requests consume no credits. There is no balance endpoint.
+- No batch endpoint — one record per request; pace sequential calls (the provider's example uses a 0.2s delay).
+- Errors: custom `{error, message}` envelope, not RFC 9457. 400 malformed, 401 invalid token, 403 token/environment mismatch, 429 rate limit.
+- No idempotency key: enrichment is a current-state lookup, so retries are safe but not deduplicated and each retry spends a token.
+- No webhooks, no event/streaming surface, no OAuth or scopes, no first-party SDKs, no CLI, no public status page, no published deprecation policy.
+
+## Agent surfaces
+
+- No hosted MCP server is published; mcp/windfall-data-mcp.yml is a derived candidate tool surface only.
+- No A2A agent card is served (/.well-known/agent-card.json and /.well-known/agent.json 404 on windfall.com and api-docs.windfall.com; 401 on api.windfalldata.com).
+- No /.well-known/ discovery documents are served on any Windfall host.
+
+## Artifacts
+
+- [Authentication](authentication/windfall-data-authentication.yml)
+- [Conventions](conventions/windfall-data-conventions.yml)
+- [Rate limits](rate-limits/windfall-data-rate-limits.yml)
+- [Plans and pricing](plans/windfall-data-plans-pricing.yml)
+- [Errors](errors/windfall-data-problem-types.yml)
+- [Examples](examples/windfall-data-examples.yml)
+- [Data model](data-model/windfall-data-data-model.yml)
+- [Sandbox](sandbox/windfall-data-sandbox.yml)
+- [Lifecycle](lifecycle/windfall-data-lifecycle.yml)
+- [Conformance](conformance/windfall-data-conformance.yml)
+- [Trust center](security/windfall-data-trust-center.yml)
+- [Domain security](security/windfall-data-domain-security.yml)
+- [Packages](packages/windfall-data-packages.yml)
+- [Agent skills](skills/_index.yml)

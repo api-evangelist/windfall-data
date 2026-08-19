@@ -1,0 +1,96 @@
+generated: '2026-08-13'
+method: searched
+source: https://api-docs.windfall.com/examples/
+also_derived_from: openapi/windfall-data-windfall-api-api-openapi.yml
+summary: >-
+  Windfall publishes worked request/response examples both inside the OpenAPI (an in-spec
+  request example and response example on the single enrichRecord operation) and on the
+  Examples & FAQs docs page (minimal request, partial match, batch pacing, error handling).
+  Captured here verbatim from the provider's own published values; no example was invented.
+operations:
+  - operationId: enrichRecord
+    method: post
+    path: /
+    in_spec_examples: true
+    examples:
+      - name: full-record-request
+        kind: request
+        source: openapi/windfall-data-windfall-api-api-openapi.yml
+        value:
+          id: 16a903p
+          first_name: Jane
+          last_name: Doe
+          addresses:
+            - address: 123 Main St, Apt A
+              city: San Francisco
+              state: CA
+              zipcode: '94133'
+          emails:
+            - jdoe@windfall.com
+            - jane@doe.com
+          phones:
+            - 415-555-1212
+          company_name: Acme Inc
+      - name: full-record-response
+        kind: response
+        status: 200
+        source: openapi/windfall-data-windfall-api-api-openapi.yml
+        value:
+          id: 16a903p
+          household:
+            confidence: 1.0
+            windfall_id: bde3d183ad6215f2932217ee5d6d368a
+            net_worth: 4200000
+          career:
+            confidence: 0.7
+            linkedin_url: linkedin.com/in/jane-doe-san-francisco
+          household_matched: true
+          career_matched: true
+      - name: minimal-request
+        kind: request
+        source: https://api-docs.windfall.com/examples/
+        note: >-
+          Name only. The docs warn that "match rates improve significantly when you include
+          address, email, or phone."
+        value:
+          first_name: Jane
+          last_name: Doe
+      - name: partial-match-response
+        kind: response
+        status: 200
+        source: https://api-docs.windfall.com/examples/
+        note: >-
+          Household matched, career did not. The docs instruct checking household_matched and
+          career_matched before dereferencing the nested objects to avoid null errors.
+        value:
+          household_matched: true
+          career_matched: false
+          career: null
+      - name: sandbox-request
+        kind: request
+        source: https://api-docs.windfall.com/sandbox/
+        note: Deterministic sandbox persona; requires a sandbox_ token against /sandbox/v1.
+        value:
+          first_name: Amanda
+          last_name: Taylor
+          address: 100 Demo St
+          zipcode: '30301'
+          email: amanda.taylor@sandbox.windfall.com
+          phone: '5553000001'
+patterns:
+  - name: batch-pacing
+    language: python
+    source: https://api-docs.windfall.com/examples/
+    description: >-
+      Sequential single-record calls with a 0.2-second delay between requests, and a 1-second
+      sleep-and-retry on HTTP 429 — the provider's own pacing pattern against the 5 req/s cap.
+  - name: error-handling
+    language: javascript
+    source: https://api-docs.windfall.com/examples/
+    description: >-
+      fetch() implementation branching on success, 429 (rate limit), 401 (auth) and a generic
+      error case.
+see_also:
+  - errors/windfall-data-problem-types.yml
+  - rate-limits/windfall-data-rate-limits.yml
+  - sandbox/windfall-data-sandbox.yml

@@ -1,6 +1,16 @@
-generated: '2026-07-21'
-method: derived
-source: openapi/windfall-data-openapi-original.json
+generated: '2026-08-13'
+method: searched
+source: https://api-docs.windfall.com/household-fields/
+sources:
+  - https://api-docs.windfall.com/household-fields/
+  - https://api-docs.windfall.com/career-fields/
+  - openapi/windfall-data-windfall-api-api-openapi.yml
+note: >-
+  The OpenAPI types household and career as opaque objects ("fields vary by account
+  configuration"), so the entity graph was first derived from the spec and is now upgraded
+  from the provider's published Household Fields and Career Fields reference pages, which
+  enumerate the 32 household attributes and 26 career attributes returned on a match. Which
+  subset a caller actually receives is entitlement-scoped per account.
 entities:
   - name: EnrichmentRequest
     description: A person record submitted for enrichment (PII inputs).
@@ -12,11 +22,90 @@ entities:
     description: Enriched result for a submitted person record.
     fields: [id, household, career, household_matched, career_matched]
   - name: Household
-    description: Enriched household data (embedded object; fields vary by account configuration).
-    fields: [confidence, windfall_id, net_worth]
+    description: >-
+      Enriched household-level data, returned when household_matched is true. 32 documented
+      attributes spanning wealth, property, life events, philanthropy, political giving and
+      financial signals. Availability is entitlement-scoped per account.
+    source: https://api-docs.windfall.com/household-fields/
+    field_groups:
+      identification:
+        - {name: windfall_id, type: string, description: Windfall's unique 32-character household identifier.}
+        - {name: confidence, type: float, description: Match strength, 0.1 to 1.0.}
+      wealth:
+        - {name: net_worth, type: number, description: Estimated household wealth at hundreds-of-thousands granularity.}
+        - {name: low_confidence_net_worth, type: number, description: Lower estimate boundary for net worth.}
+        - {name: high_confidence_net_worth, type: number, description: Upper estimate boundary for net worth.}
+        - {name: net_worth_last_calculated, type: date, description: When the estimate was last computed (YYYY-MM-DD).}
+        - {name: loan_to_value, type: float, description: Outstanding loans against property values, as a decimal.}
+      property:
+        - {name: multi_property_owner, type: boolean}
+        - {name: rental_property_owner, type: boolean}
+        - {name: boat_owner, type: boolean}
+        - {name: plane_owner, type: boolean}
+      life_events:
+        - {name: recent_mover, type: boolean, description: Relocated in the last 6 months.}
+        - {name: recently_divorced, type: boolean, description: Divorced in the last 6 months.}
+        - {name: recent_death_in_family, type: boolean, description: Death in household in the last 6 months.}
+      philanthropy:
+        - {name: philanthropic_giver, type: boolean, description: Charitable giving within 60 months.}
+        - {name: top_philanthropic_donor, type: boolean, description: $10K in philanthropic giving in the last 12 months.}
+        - {name: philanthropic_cause, type: "string[]", description: NTEE classification codes for supported causes.}
+        - {name: regional_focus, type: "string[]", description: Geographic scope of charitable contributions.}
+        - {name: donor_advised_funds, type: boolean}
+        - {name: foundation_association, type: boolean}
+        - {name: foundation_officer_trustee, type: boolean}
+        - {name: nonprofit_board_member, type: boolean}
+      political:
+        - {name: political_donor, type: boolean, description: Campaign contributions within 60 months.}
+        - {name: top_political_donor, type: boolean, description: $10K in political donations in the last 12 months.}
+        - {name: political_party, type: string, description: Democrat, Republican, or Independent.}
+      financial_signals:
+        - {name: money_in_motion, type: boolean, description: Recent SEC insider trading activity ($10K+ last 12 months).}
+        - {name: liquidity_trigger, type: boolean, description: Significant recent spending activity.}
+        - {name: has_household_debt, type: boolean, description: Associated mortgages.}
+        - {name: crypto_interest, type: boolean}
+        - {name: small_business_owner, type: boolean}
+        - {name: trust_association, type: boolean}
+      data_quality:
+        - {name: primary_address_incorrect, type: boolean, description: More current address information is available.}
   - name: Career
-    description: Enriched career data (embedded object; fields vary by account configuration).
-    fields: [confidence, linkedin_url]
+    description: >-
+      Career and employment data, returned when career_matched is true. 26 documented
+      attributes covering the current role, recent job changes, employment status and
+      employer firmographics. Availability is entitlement-scoped per account.
+    source: https://api-docs.windfall.com/career-fields/
+    field_groups:
+      match_quality:
+        - {name: confidence, type: float, description: Match confidence score, 0.1 to 1.0.}
+        - {name: career_data_last_updated, type: date}
+        - {name: linkedin_url, type: string}
+      current_role:
+        - {name: job_title, type: string, description: Most recent job title.}
+        - {name: job_level, type: string, description: e.g. C-Suite, VP, Director.}
+        - {name: job_function, type: string, description: Job department or function.}
+        - {name: job_start_date, type: date}
+      job_changes:
+        - {name: recently_changed_jobs, type: boolean, description: Changed jobs in the last 6 months.}
+        - {name: recently_promoted, type: boolean}
+        - {name: recently_retired, type: boolean}
+        - {name: recently_changed_companies, type: boolean}
+      employment_status:
+        - {name: possibly_student, type: boolean}
+        - {name: possibly_unemployed, type: boolean}
+        - {name: possible_additional_jobs, type: boolean}
+      employer:
+        - {name: company_name, type: string, description: Most recent employer name.}
+        - {name: company_domain, type: string}
+        - {name: company_phone_number, type: string}
+        - {name: company_address_line_one, type: string}
+        - {name: company_address_line_two, type: string}
+        - {name: company_city, type: string}
+        - {name: company_state, type: string}
+        - {name: company_zip, type: string}
+        - {name: company_naics_code, type: string}
+        - {name: company_category, type: string, description: e.g. Public Company, Educational, Government Agency.}
+        - {name: company_size_range, type: string, description: e.g. 1-10, 51-200, 10,000+.}
+        - {name: company_revenue_range, type: string, description: "e.g. $1-10M, $10-50M, > $1B."}
 relationships:
   - from: EnrichmentRequest
     to: Address
@@ -34,7 +123,21 @@ relationships:
     to: EnrichmentRequest
     type: belongs_to
     via: id
+  - from: Career
+    to: Employer
+    type: belongs_to
+    via: company_domain
+    note: >-
+      Employer is not a separate addressable resource — firmographics are flattened onto the
+      career object as company_* fields. company_domain is the only stable join key.
 identifiers:
   - name: windfall_id
     description: Stable Windfall household identifier (32-char hex) returned on a household match.
     example: bde3d183ad6215f2932217ee5d6d368a
+  - name: id
+    description: Caller-supplied correlation identifier from the system of record, echoed on the response.
+  - name: company_naics_code
+    description: NAICS industry code for the matched employer — the external classification join.
+counts:
+  household_fields: 32
+  career_fields: 26

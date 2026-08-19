@@ -1,0 +1,42 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.windfall.com/api
+docs:
+  - https://www.windfall.com/api
+  - https://www.windfall.com/blog/powering-real-time-ai-native-workflows-opening-the-windfall-api-to-all-customers-and-partners
+plan_count: 0
+plans: []
+note: >-
+  Windfall publishes no pricing page and no self-serve plans for the enrichment API.
+  https://www.windfall.com/pricing returns 404 and no pricing URL appears anywhere in
+  https://www.windfall.com/sitemap.xml — the site's commercial call to action is "request a
+  demo". API access is not sold as a standalone product: Windfall states that existing
+  customers get the API "at no additional cost, with a set number of monthly credits" scaled
+  to their existing subscription, and that "we won't be charging for a standard set of
+  monthly API calls. You can use those as part of your engagement with Windfall, and
+  overages will be handled under your existing agreement at a per-additional-API-call cost."
+  The credit allocation and refresh cadence are contractual, set by the purchase order, and
+  raised by contacting a Windfall account representative. plan_count is 0 because there are
+  genuinely no published tiers — this is a recorded absence, not an unchecked field.
+model:
+  type: enterprise-contract
+  self_serve: false
+  free_tier: false
+  trial: false
+  entitlement: >-
+    Bundled with a Windfall platform subscription as a monthly API-call credit allocation;
+    usage above the allocation is billed per additional API call under the existing agreement.
+  quota_unit: usage token (one token per record queried)
+  quota_source: https://api-docs.windfall.com/
+  sandbox_billing: Sandbox requests do not consume credits.
+  raising_quota: Contact your Windfall account representative.
+evidence:
+  - url: https://www.windfall.com/pricing
+    status: 404
+  - url: https://www.windfall.com/api
+    status: 200
+  - url: https://www.windfall.com/sitemap.xml
+    status: 200
+    note: no /pricing entry present
+see_also:
+  - rate-limits/windfall-data-rate-limits.yml

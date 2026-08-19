@@ -3,7 +3,7 @@ name: Enrich a person record with Windfall
 description: >-
   Submit a person record (name, address, email, phone, company) to the Windfall API and
   interpret the enriched household net worth and career data returned in real time.
-api: openapi/windfall-data-openapi-original.json
+api: openapi/windfall-data-windfall-api-api-openapi.yml
 operations: [enrichRecord]
 ---
 

@@ -1,0 +1,67 @@
+generated: '2026-08-13'
+method: searched
+source: https://api-docs.windfall.com/
+docs:
+  - https://api-docs.windfall.com/
+  - https://api-docs.windfall.com/examples/
+  - https://api-docs.windfall.com/sandbox/
+summary: >-
+  Windfall publishes a single documented throughput ceiling for the enrichment API — five
+  requests per second — enforced in addition to a contractual usage-token (credit) quota
+  tied to the customer's purchase order. Exceeding the per-second ceiling returns HTTP 429
+  with the error identifier rate_limit; exhausting the token quota returns an error and
+  requires Windfall to refresh or raise the allocation. The provider documents no
+  RateLimit-* / X-RateLimit-* response headers and no Retry-After header, so an agent has
+  no runtime signal for remaining quota — only the 429 status and the error identifier.
+limit_count: 2
+rate_limits:
+  - id: requests-per-second
+    scope: per-key
+    window: 1s
+    limit: 5
+    burst: null
+    applies_to:
+      - https://api.windfalldata.com/v1
+      - https://api.windfalldata.com/sandbox/v1
+    exceeded_status: 429
+    exceeded_error: rate_limit
+    guidance: >-
+      "The API enforces a maximum of 5 requests per second. Exceeding this limit returns a
+      429 status with a rate_limit error. Back off and retry after a brief delay."
+    source: https://api-docs.windfall.com/
+  - id: usage-token-quota
+    scope: per-account
+    window: contractual
+    limit: null
+    limit_note: >-
+      "Each token is issued with a set number of usage tokens that correspond to the number
+      of records you can query. The token allocation and refresh frequency are determined by
+      your purchase order." The numeric allocation is not published — it is set per contract.
+    exceeded_status: null
+    exceeded_error: null
+    guidance: >-
+      Docs FAQ: "What happens when token quota is exhausted? You will receive an error
+      response. Contact Windfall to refresh or increase your quota." Sandbox requests do not
+      consume credits.
+    source: https://api-docs.windfall.com/examples/
+headers:
+  request: []
+  response: []
+  note: >-
+    No rate-limit response headers are documented (no RateLimit-*, X-RateLimit-*, or
+    Retry-After). Checked the overview, quickstart, authentication, enrich reference and
+    examples pages. Absence recorded, not inferred.
+retry_guidance:
+  documented: true
+  pattern: >-
+    The published batch example paces sequential calls with a 0.2-second delay and, on a 429,
+    sleeps 1 second before retrying the same record.
+  source: https://api-docs.windfall.com/examples/
+raising_limits:
+  method: contact account representative
+  quote: "Contact your Windfall account representative to discuss adjusting your plan."
+  source: https://api-docs.windfall.com/examples/
+see_also:
+  - conventions/windfall-data-conventions.yml
+  - errors/windfall-data-problem-types.yml
+  - plans/windfall-data-plans-pricing.yml

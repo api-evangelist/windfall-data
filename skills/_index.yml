@@ -1,7 +1,16 @@
-generated: '2026-07-21'
+generated: '2026-08-13'
 method: generated
+source: openapi/windfall-data-windfall-api-api-openapi.yml + https://api-docs.windfall.com/
 skills:
   - file: windfall-data-enrich-record.md
     name: Enrich a person record with Windfall
-    api: openapi/windfall-data-openapi-original.json
+    api: openapi/windfall-data-windfall-api-api-openapi.yml
     operations: [enrichRecord]
+  - file: windfall-data-batch-enrich-with-pacing.md
+    name: Enrich a list of records with Windfall while respecting rate limits and credits
+    api: openapi/windfall-data-windfall-api-api-openapi.yml
+    operations: [enrichRecord]
+note: >-
+  Windfall publishes a single API operation, so both skills are grounded in enrichRecord. They
+  differ in flow, not in surface: one covers the single real-time lookup, the other the paced
+  sequential loop the provider's own examples prescribe (no batch endpoint exists).
