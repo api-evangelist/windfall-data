@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Windfall Windfall API API
+  title: Windfall API
   description: 'The Windfall API delivers enriched household and career data on a single-record basis in real time. Submit a person record with basic PII and receive enriched data about their household and career — all returned as JSON in a single request.
 
 
@@ -113,31 +113,26 @@ paths:
       - Windfall API
 components:
   schemas:
-    EnrichmentResponse:
+    Address:
       type: object
-      description: Enrichment results for the submitted person record.
+      description: A property address used during matching.
       properties:
-        id:
+        address:
           type: string
           nullable: true
-          description: The ID you submitted, echoed back.
-        household:
-          type: object
+          description: Street address. Multiple address lines should be concatenated with a space, e.g. `123 Main St Unit 42`. Can also be a full address if components aren't available separately.
+        city:
+          type: string
           nullable: true
-          description: Enriched household data including Windfall ID, net worth, and confidence score. Only present when a household match is found. Fields vary by account configuration.
-        career:
-          type: object
+          description: City or locality. Should be a locality recognized by the USPS.
+        state:
+          type: string
           nullable: true
-          description: Career data including LinkedIn URL and confidence score. Only present when a career match is found. Fields vary by account configuration.
-        household_matched:
-          type: boolean
-          description: Whether household attributes were returned.
-        career_matched:
-          type: boolean
-          description: Whether career attributes were returned.
-      required:
-      - household_matched
-      - career_matched
+          description: State abbreviation or full name. When not provided, it may be inferred from the zip code.
+        zipcode:
+          type: string
+          nullable: true
+          description: US or Canadian zip code. Must include at least 5 digits and may optionally include the +4 digits. For best results, always provide a zip code.
     EnrichmentRequest:
       type: object
       description: A person record to enrich. Provide as many fields as possible for the best match results.
@@ -176,26 +171,31 @@ components:
           type: string
           nullable: true
           description: A company name associated with the individual. Used to improve career matching accuracy when multiple people share the same name.
-    Address:
+    EnrichmentResponse:
       type: object
-      description: A property address used during matching.
+      description: Enrichment results for the submitted person record.
       properties:
-        address:
+        id:
           type: string
           nullable: true
-          description: Street address. Multiple address lines should be concatenated with a space, e.g. `123 Main St Unit 42`. Can also be a full address if components aren't available separately.
-        city:
-          type: string
+          description: The ID you submitted, echoed back.
+        household:
+          type: object
           nullable: true
-          description: City or locality. Should be a locality recognized by the USPS.
-        state:
-          type: string
+          description: Enriched household data including Windfall ID, net worth, and confidence score. Only present when a household match is found. Fields vary by account configuration.
+        career:
+          type: object
           nullable: true
-          description: State abbreviation or full name. When not provided, it may be inferred from the zip code.
-        zipcode:
-          type: string
-          nullable: true
-          description: US or Canadian zip code. Must include at least 5 digits and may optionally include the +4 digits. For best results, always provide a zip code.
+          description: Career data including LinkedIn URL and confidence score. Only present when a career match is found. Fields vary by account configuration.
+        household_matched:
+          type: boolean
+          description: Whether household attributes were returned.
+        career_matched:
+          type: boolean
+          description: Whether career attributes were returned.
+      required:
+      - household_matched
+      - career_matched
     Error:
       type: object
       properties:

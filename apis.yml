@@ -141,3 +141,5 @@ x-enrichment:
   status: enriched
   artifacts_added: 5
   pass: local-v1
+x-parent: windfall
+x-relationship: product
