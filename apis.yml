@@ -1,15 +1,13 @@
 aid: windfall-data
 name: Windfall Data
-description: >-
-  Windfall (windfall.com, formerly windfalldata.com) is a people-intelligence and AI platform
-  that personalizes go-to-market workflows with wealth and career data. Its developer-facing
-  Windfall API delivers enriched household and career data on a single-record basis in real
-  time: submit a person record with basic PII and receive that individual's household net
-  worth, a stable Windfall ID, and career signals such as a LinkedIn URL and title, returned
-  as JSON in one sub-second request. Coverage is United States, data is refreshed weekly, and
-  the API is used for real-time lead routing and grading, marketing enrichment, and analytics
-  scoring. Authentication is a Windfall-issued header token with a dedicated sandbox
-  environment of deterministic test personas. Windfall is SOC 2 Type 2 certified.
+description: 'Windfall (windfall.com, formerly windfalldata.com) is a people-intelligence and AI platform
+  that personalizes go-to-market workflows with wealth and career data. Its developer-facing Windfall
+  API delivers enriched household and career data on a single-record basis in real time: submit a person
+  record with basic PII and receive that individual''s household net worth, a stable Windfall ID, and
+  career signals such as a LinkedIn URL and title, returned as JSON in one sub-second request. Coverage
+  is United States, data is refreshed weekly, and the API is used for real-time lead routing and grading,
+  marketing enrichment, and analytics scoring. Authentication is a Windfall-issued header token with a
+  dedicated sandbox environment of deterministic test personas. Windfall is SOC 2 Type 2 certified.'
 url: https://raw.githubusercontent.com/api-evangelist/windfall-data/refs/heads/main/apis.yml
 deliveryModel:
   model: saas
@@ -47,7 +45,7 @@ x-tier: profiled
 x-tier-reason: enriched-real-api
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-08-13'
+modified: '2026-09-16'
 tags:
 - Company
 - Data
@@ -60,7 +58,7 @@ tags:
 - Sales
 apis:
 - aid: windfall-data:windfall-data-windfall-api-api
-  name: Windfall Data Windfall API API
+  name: Windfall Data Windfall API
   description: The Windfall API API from Windfall Data — 1 operation(s) for windfall api.
   humanURL: https://api-docs.windfall.com/
   baseURL: https://api.windfalldata.com/v1
@@ -93,7 +91,10 @@ common:
   url: sandbox/windfall-data-sandbox.yml
 - type: X-MCPServerCandidate
   url: mcp/windfall-data-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+    — a tool list derived from the published API contracts, not an existing server. The scorer already
+    read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+    surfaces with a server that does not exist.'
 - type: AgentSkill
   url: skills/_index.yml
 - type: AgenticAccess
