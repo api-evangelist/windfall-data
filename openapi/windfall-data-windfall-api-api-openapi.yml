@@ -1,41 +1,7 @@
 openapi: 3.2.0
 info:
   title: Windfall API
-  description: 'The Windfall API delivers enriched household and career data on a single-record basis in real time. Submit a person record with basic PII and receive enriched data about their household and career — all returned as JSON in a single request.
-
-
-    Unlike batch enrichment jobs, the API returns results immediately, making it ideal for workflows that need data at the point of action.
-
-
-    ## Common Use Cases
-
-
-    - **Sales** — Real-time enrichment for lead routing and grading to inform immediate action.
-
-    - **Marketing** — Enrich new leads as they''re created and enroll them in relevant nurture flows.
-
-    - **Analytics** — Consume data in real time to power internal scoring and modeling efforts.
-
-
-    ## Authentication
-
-
-    All API requests require a valid token in the `X-WF-Auth-Token` header. Tokens are issued by Windfall and tied to your organization''s account. All requests must be made over HTTPS.
-
-
-    > **Keep your token secure.** Never expose your API token in client-side code or public repositories.
-
-
-    ## API Tokens
-
-
-    Each token is issued with a set number of usage tokens that correspond to the number of records you can query. The token allocation and refresh frequency are determined by your purchase order.
-
-
-    ## Rate Limits
-
-
-    The API enforces a maximum of **5 requests per second**. Exceeding this limit returns a `429` status with a `rate_limit` error. Back off and retry after a brief delay.'
+  description: The Windfall API delivers enriched household and career data on a single-record basis in real time.
   version: 1.0.0
   x-logo:
     url: /logo.svg
@@ -133,6 +99,15 @@ components:
           type: string
           nullable: true
           description: US or Canadian zip code. Must include at least 5 digits and may optionally include the +4 digits. For best results, always provide a zip code.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type identifier.
+        message:
+          type: string
+          description: Human-readable error message.
     EnrichmentRequest:
       type: object
       description: A person record to enrich. Provide as many fields as possible for the best match results.
@@ -196,15 +171,6 @@ components:
       required:
       - household_matched
       - career_matched
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error type identifier.
-        message:
-          type: string
-          description: Human-readable error message.
   securitySchemes:
     ApiToken:
       type: apiKey

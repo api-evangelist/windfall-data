@@ -1,7 +1,7 @@
 {
   "provider": "windfall-data",
   "sources": [
-    "windfall-data-windfall-api-api-openapi.yml"
+    "_original/windfall-data-openapi-original.json"
   ],
   "outputs": [
     "windfall-data-windfall-api-api-openapi.yml"
@@ -10,8 +10,13 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "windfall-data-windfall-api-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "windfall-data-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "windfall-data-openapi-original.json: tagged paths POST / -> Windfall API",
+    "windfall-data-openapi-original.json: declared missing tag: Windfall API",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "windfall-data-windfall-api-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
