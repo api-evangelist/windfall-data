@@ -79,15 +79,6 @@ paths:
       - Windfall API
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error type identifier.
-        message:
-          type: string
-          description: Human-readable error message.
     EnrichmentResponse:
       type: object
       description: Enrichment results for the submitted person record.
@@ -151,6 +142,15 @@ components:
           type: string
           nullable: true
           description: A company name associated with the individual. Used to improve career matching accuracy when multiple people share the same name.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error type identifier.
+        message:
+          type: string
+          description: Human-readable error message.
     Address:
       type: object
       description: A property address used during matching.
